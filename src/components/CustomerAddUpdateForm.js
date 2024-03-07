@@ -30,6 +30,17 @@ export default function CustomerAddUpdateForm(props) {
     
       let onSaveClick = function () {
         console.log("in onSaveClick()");
+        const emailRegex = /\b[A-Za-z0-9._%+-]+@[A-Za-z0-9.-]+\.[A-Za-z]{2,6}\b/gm;
+        if (props.formObject.name === '') {
+          alert("Please enter a name.");
+          return;
+        } else if (!emailRegex.test(props.formObject.email)) {
+          alert("Please enter a valid email.");
+          return;
+        } else if (props.formObject.password === '') {
+          alert("Please enter a password.");
+          return;
+        }
         let postOpCallback = () => { props.setFormObject(props.blankCustomer); }
         if (mode === "Add") {
           post(props.formObject, postOpCallback);
